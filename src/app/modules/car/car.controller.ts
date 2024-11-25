@@ -38,7 +38,8 @@ const getSingleCar = async (req: Request, res: Response) => {
     const result = await CarServices.getSingleCarFromDB(carId);
 
     if (!result) {
-      return res.status(404).json({ success: false, message: 'Car not found' });
+      res.status(404).json({ success: false, message: 'Car not found' });
+      return;
     }
     res.status(200).json({
       success: true,
@@ -57,10 +58,11 @@ const updateSingleCar = async (req: Request, res: Response) => {
 
     const result = await CarServices.updateSingleCarFromDB(carId, updatedData);
     if (!result) {
-      return res.status(404).json({
+      res.status(404).json({
         success: false,
         message: 'Car not found',
       });
+      return;
     }
     res.status(200).json({
       success: true,
@@ -77,7 +79,8 @@ const deleteSingleCar = async (req: Request, res: Response) => {
     const carId = req.params.carId;
     const result = await CarServices.deleteSingleCarFromDB(carId);
     if (result.deletedCount === 0) {
-      return res.status(404).json({ success: false, message: 'Car not found' });
+      res.status(404).json({ success: false, message: 'Car not found' });
+      return;
     }
     res.status(200).json({
       success: true,
